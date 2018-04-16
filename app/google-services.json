@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "22032533567",
+    "firebase_url": "https://storemanager-b0713.firebaseio.com",
+    "project_id": "storemanager-b0713",
+    "storage_bucket": "storemanager-b0713.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22032533567:android:6b02dc20252b2ea3",
+        "android_client_info": {
+          "package_name": "proj.dbms.grocerystore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22032533567-191jk5o9el2lpb1ot9cb6ik3tipo2es4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "proj.dbms.grocerystore",
+            "certificate_hash": "2e6613bf2e67b931d985fbd2d80b3e56add494f8"
+          }
+        },
+        {
+          "client_id": "22032533567-5p2jcva34db9l7koth1l4umdivoqj7p2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIfNfXGn2tGY2zOWHP9VSdlHJ2jZGz400"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22032533567-5p2jcva34db9l7koth1l4umdivoqj7p2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

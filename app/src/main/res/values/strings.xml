@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GroceryStore</string>
+    <string name="buttonAfterOTPSent">Click after entering OTP</string>
+    <string name="buttonAfterOTPTimeout">Click Here</string>
+</resources>
