@@ -30,7 +30,7 @@ public class DBConnection extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        // create notes table
+        // create items table
         db.execSQL(Item.CREATE_TABLE);
     }
 
@@ -78,7 +78,7 @@ public class DBConnection extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        // prepare note object
+        // prepare item object
         Item item = new Item(
                 cursor.getInt(cursor.getColumnIndex(Item.COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(Item.COLUMN_NAME)),
