@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
@@ -62,6 +63,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        FirebaseApp.initializeApp(this);
+
         setContentView(R.layout.activity_main);
         //////////////
 
@@ -71,13 +74,14 @@ public class MainActivity extends Activity {
 
     private void checkPermissions() {
 
-        String[] permissions = new String[]{android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.READ_SMS, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION};
+        String[] permissions = new String[]{android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.READ_SMS, Manifest.permission.READ_EXTERNAL_STORAGE};
 
         for (int i = 0; i < permissions.length; i++) {
             if (ContextCompat.checkSelfPermission(this,
                     permissions[i])
                     != PackageManager.PERMISSION_GRANTED) {
                 allPermissionsGranted = FALSE;
+
                 break;
             }
         }
@@ -101,7 +105,6 @@ public class MainActivity extends Activity {
                         1);
 
             } else {
-
                 // No explanation needed, we can request the permission.
 
                 ActivityCompat.requestPermissions(this,
@@ -109,6 +112,7 @@ public class MainActivity extends Activity {
                         0);
             }
         } else {
+
             if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS && GoogleApiAvailability.GOOGLE_PLAY_SERVICES_VERSION_CODE > 11000) {
                 launch();
 
@@ -119,6 +123,7 @@ public class MainActivity extends Activity {
     }
 
     private void launch() {
+
         File file = this.getFileStreamPath("myImages");
         if (!file.exists()) {
             file.mkdir();

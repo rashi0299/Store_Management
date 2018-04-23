@@ -88,6 +88,8 @@ public class Firebase {
         @Override
         protected Integer doInBackground(Void... voids) {
 
+            Log.w("Executing", "Yes");
+
             currentUser = FirebaseAuth.getInstance().getCurrentUser();
             if (currentUser == null) {
                 return -1;
@@ -96,7 +98,7 @@ public class Firebase {
                 currentUser.getIdToken(true)
                         .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                             public void onComplete(@NonNull Task<GetTokenResult> task) {
-                                Log.w("Test", "Till here");
+
                                 if (task.isSuccessful()) {
 
 
@@ -119,10 +121,13 @@ public class Firebase {
 
         @Override
         protected void onPostExecute(Integer result) {
+            Log.w("result", result + "");
             if (result != null && result == -1) {
                 Firebase.progressDialog.dismiss();
                 PhoneVerification verify = new PhoneVerification();
                 activity.getFragmentManager().beginTransaction().replace(R.id.fragment, verify).commit();
+            } else {
+                activity.getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeScreen()).commit();
             }
         }
 

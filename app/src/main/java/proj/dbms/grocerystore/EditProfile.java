@@ -161,8 +161,9 @@ public class EditProfile extends Fragment implements View.OnClickListener, OnSuc
 
     private void submit(Uri thumbnail, Uri profilePicture) {
         Firebase.progressDialog.setMessage("Submitting...");
-        Firebase.progressDialog.show();
+        //Firebase.progressDialog.show();
         //TODO
+        Firebase.activity.getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeScreen()).commit();
     }
 
     private void uploadFile() {
