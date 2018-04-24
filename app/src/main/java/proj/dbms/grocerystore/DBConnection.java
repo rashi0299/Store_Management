@@ -161,7 +161,7 @@ public class DBConnection extends SQLiteOpenHelper {
                 item.setPrice(cursor.getFloat(cursor.getColumnIndex(Item.COLUMN_PRICE)));
                 item.setQuantity(cursor.getInt(cursor.getColumnIndex(Item.COLUMN_QUANTITY)));
 
-                items.add(item);
+                if (item.getQuantity() != 0) items.add(item);
             } while (cursor.moveToNext());
         }
 

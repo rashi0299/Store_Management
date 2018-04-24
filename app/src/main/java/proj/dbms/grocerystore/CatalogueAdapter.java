@@ -54,5 +54,4 @@ public class CatalogueAdapter extends BaseAdapter {
         price.setText(String.valueOf(this.items.get(position).getPrice()));
         return rowView;
     }
-
 }

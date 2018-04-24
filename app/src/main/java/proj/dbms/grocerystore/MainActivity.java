@@ -193,7 +193,7 @@ public class MainActivity extends Activity {
                 LinearLayout linearLayout = findViewById(R.id.fragment);
 
                 final PopupWindow popup = new PopupWindow(dialogView, 900, 500);
-                popup.setBackgroundDrawable(new ColorDrawable(0x80000000));
+                popup.setBackgroundDrawable(new ColorDrawable(0xff808080));
                 popup.setFocusable(TRUE);
                 popup.showAtLocation(linearLayout, Gravity.CENTER, 0, 0);
                 add.setOnClickListener(new View.OnClickListener() {
