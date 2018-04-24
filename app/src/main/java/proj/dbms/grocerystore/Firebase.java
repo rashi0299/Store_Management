@@ -101,11 +101,17 @@ public class Firebase {
 
                                 if (task.isSuccessful()) {
 
-
                                     Firebase.storageReference = FirebaseStorage.getInstance().getReference();
-
                                     Firebase.displayName = Firebase.currentUser.getDisplayName();
                                     Firebase.UID = Firebase.currentUser.getUid();
+                                    DBConnection conn = new DBConnection(activity);
+                                    Users user = conn.getUser(UID);
+                                    MainActivity.isAdmin = user.isAdmin();
+                                    if (MainActivity.isAdmin) {
+                                        MainActivity.manageUsers.setVisible(true);
+                                        MainActivity.addCategory.setVisible(true);
+                                    }
+                                    Log.w("isAdmin", user.isAdmin() + "");
 
                                 } else {
                                     Toast.makeText(activity, task.getException().toString(), Toast.LENGTH_SHORT).show();

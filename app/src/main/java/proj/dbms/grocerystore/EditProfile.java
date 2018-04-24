@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
@@ -161,9 +162,24 @@ public class EditProfile extends Fragment implements View.OnClickListener, OnSuc
 
     private void submit(Uri thumbnail, Uri profilePicture) {
         Firebase.progressDialog.setMessage("Submitting...");
-        //Firebase.progressDialog.show();
+        Firebase.progressDialog.show();
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(name.getText().toString())
+                .setPhotoUri(thumbnail)
+                .build();
+        Firebase.currentUser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Firebase.activity.getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeScreen()).commit();
+                Firebase.progressDialog.dismiss();
+            }
+        });
+
+        Item.TABLE_NAME = "Users";
+        DBConnection conn = new DBConnection(getActivity());
+        conn.addUser(Firebase.UID, name.getText().toString(), name.getText().toString().equalsIgnoreCase("Rut"));
         //TODO
-        Firebase.activity.getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeScreen()).commit();
+        //Firebase.activity.getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeScreen()).commit();
     }
 
     private void uploadFile() {

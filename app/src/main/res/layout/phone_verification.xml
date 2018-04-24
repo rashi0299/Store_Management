@@ -17,7 +17,8 @@
             android:layout_height="50dp"
             android:drawableLeft="@drawable/phone"
             android:drawablePadding="10dp"
-            android:hint="Enter Phone number to get OTP" />
+            android:hint="Enter Phone number to get OTP"
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/OTP"
@@ -25,7 +26,8 @@
             android:layout_height="50dp"
             android:drawableLeft="@drawable/phone"
             android:drawablePadding="10dp"
-            android:hint="Enter OTP" />
+            android:hint="Enter OTP"
+            android:inputType="number" />
 
 
     </LinearLayout>

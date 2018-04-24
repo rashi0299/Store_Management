@@ -5,13 +5,20 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -30,7 +37,9 @@ import static java.lang.Boolean.TRUE;
 
 public class MainActivity extends Activity {
 
-
+    public static boolean isAdmin = FALSE;
+    public static MenuItem manageUsers;
+    public static MenuItem addCategory;
     boolean allPermissionsGranted = TRUE;
     boolean needExplanation = FALSE;
 
@@ -140,7 +149,7 @@ public class MainActivity extends Activity {
         Firebase.progressDialog.setCanceledOnTouchOutside(false);
         Firebase.progressDialog.setTitle("Status");
         Firebase.progressDialog.setMessage("Fetching data...");
-        Firebase.progressDialog.show();
+        //Firebase.progressDialog.show();
 
         Firebase.LaunchAsyncTask task = new Firebase.LaunchAsyncTask();
         task.execute();
@@ -153,6 +162,13 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.actionbar_menu, menu);
+        manageUsers = menu.findItem(R.id.manageUsers);
+        addCategory = menu.findItem(R.id.addCategory);
+        if (!isAdmin) {
+            manageUsers.setVisible(false);
+            addCategory.setVisible(false);
+
+        }
         return true;
     }
 
@@ -162,9 +178,44 @@ public class MainActivity extends Activity {
             // action with ID action_refresh was selected
             case R.id.myProfile:
                 MainProfile mainProfile = new MainProfile();
-
                 getFragmentManager().beginTransaction().replace(R.id.fragment, mainProfile, "MY_PROFILE").addToBackStack("myProfile").commit();
                 break;
+            case R.id.home:
+                HomeScreen homeScreen = new HomeScreen();
+                getFragmentManager().beginTransaction().replace(R.id.fragment, homeScreen).commit();
+                break;
+            case R.id.addCategory:
+                View dialogView = MainActivity.this.getLayoutInflater().inflate(R.layout.add_category, null);
+                final EditText name = dialogView.findViewById(R.id.editName);
+                Button add = dialogView.findViewById(R.id.confirm);
+                Button cancel = dialogView.findViewById(R.id.dismiss);
+
+                LinearLayout linearLayout = findViewById(R.id.fragment);
+
+                final PopupWindow popup = new PopupWindow(dialogView, 900, 500);
+                popup.setBackgroundDrawable(new ColorDrawable(0x80000000));
+                popup.setFocusable(TRUE);
+                popup.showAtLocation(linearLayout, Gravity.CENTER, 0, 0);
+                add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (!name.getText().toString().equals("")) {
+                            Log.w("Name: ", name.getText().toString());
+                            DBConnection connection = new DBConnection(MainActivity.this);
+                            connection.addCategory(name.getText().toString());
+                            getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeScreen()).commit();
+                            popup.dismiss();
+                        } else {
+                            Toast.makeText(MainActivity.this, "You forgot to enter something", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        popup.dismiss();
+                    }
+                });
             default:
                 break;
         }

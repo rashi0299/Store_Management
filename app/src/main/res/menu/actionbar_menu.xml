@@ -6,4 +6,20 @@
         android:title="My Profile"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/manageUsers"
+        android:title="Manage Users"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/addCategory"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="Add Category"
+        app:showAsAction="always" />
+
 </menu>

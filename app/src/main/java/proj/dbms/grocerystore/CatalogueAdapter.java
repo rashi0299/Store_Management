@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by rutvora (www.github.com/rutvora)
@@ -15,36 +15,30 @@ import java.util.ArrayList;
 
 public class CatalogueAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
-    ArrayList<String> name;
     Context context;
-    ArrayList<Float> price;
-    ArrayList<Integer> quantity;
-    ArrayList<Integer> id;
+    List<Item> items;
 
-    CatalogueAdapter(Context receivedContext, ArrayList<Integer> id, ArrayList<String> name, ArrayList<Float> price, ArrayList<Integer> quantity) {
+    CatalogueAdapter(Context receivedContext, List<Item> items) {
 
-        this.name = name;
         context = receivedContext;
-        this.quantity = quantity;
-        this.price = price;
-        this.id = id;
+        this.items = items;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return name.size();
+        return items.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return name.get(position);
+        return items.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return id.get(position);
+        return items.get(position).getId();
     }
 
     @Override
@@ -55,9 +49,9 @@ public class CatalogueAdapter extends BaseAdapter {
         TextView name = rowView.findViewById(R.id.itemName);
         TextView quantity = rowView.findViewById(R.id.itemQuantity);
         TextView price = rowView.findViewById(R.id.itemPrice);
-        name.setText(this.name.get(position));
-        quantity.setText(this.quantity.get(position));
-        price.setText(String.valueOf(this.price.get(position)));
+        name.setText(this.items.get(position).getName());
+        quantity.setText(String.valueOf(this.items.get(position).getQuantity()));
+        price.setText(String.valueOf(this.items.get(position).getPrice()));
         return rowView;
     }
 
