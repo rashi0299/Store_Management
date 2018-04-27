@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,10 +52,10 @@ public class MainProfile extends Fragment implements View.OnClickListener {
             File[] fileArray = file.listFiles();
             File profileThumb = null;
             for (int i = 0; i < fileArray.length; i++) {
-                Log.w("File" + i, fileArray[i].toString());
+
                 if (fileArray[i].toString().contains("profile.thumb")) {
                     profileThumb = fileArray[i];
-                    Log.w("profileThumb", profileThumb.toString());
+
                 }
 
                 file = getActivity().getFileStreamPath("myImages");
@@ -71,7 +70,7 @@ public class MainProfile extends Fragment implements View.OnClickListener {
                 }
             }
             profilePic.setImageDrawable(Drawable.createFromPath(profileThumb.toString()));
-            Log.w("SetImage", "This Ran");
+
         } catch (Exception e) {
             e.printStackTrace();
         }

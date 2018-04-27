@@ -6,7 +6,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,21 +27,20 @@ import java.io.File;
 
 public class Firebase {
 
-    public static FirebaseAuth auth;
-    public static String UID;
-    public static FirebaseUser currentUser;
-    public static StorageReference storageReference;
-    public static String displayName;
+    static FirebaseAuth auth;
+    static String UID;
+    static FirebaseUser currentUser;
+    static StorageReference storageReference;
+    static String displayName;
 
 
-    public static ProgressDialog progressDialog;
+    static ProgressDialog progressDialog;
     static Activity activity;
 
-    public static UploadTask uploadFile(final Context context, Uri file, String folder, boolean isProPic, boolean isThumb) {
+    static UploadTask uploadFile(final Context context, Uri file, String folder, boolean isProPic, boolean isThumb) {
         UploadTask task = null;
         if (file != null) {
 
-            Log.w("Uploading file", "Yes");
             progressDialog = new ProgressDialog(context);
             progressDialog.setCanceledOnTouchOutside(false);
             //displaying a progress dialog while upload is going on
@@ -88,8 +86,6 @@ public class Firebase {
         @Override
         protected Integer doInBackground(Void... voids) {
 
-            Log.w("Executing", "Yes");
-
             currentUser = FirebaseAuth.getInstance().getCurrentUser();
             if (currentUser == null) {
                 return -1;
@@ -108,10 +104,9 @@ public class Firebase {
                                     Users user = conn.getUser(UID);
                                     MainActivity.isAdmin = user.isAdmin();
                                     if (MainActivity.isAdmin) {
-                                        MainActivity.manageUsers.setVisible(true);
                                         MainActivity.addCategory.setVisible(true);
                                     }
-                                    Log.w("isAdmin", user.isAdmin() + "");
+
 
                                 } else {
                                     Toast.makeText(activity, task.getException().toString(), Toast.LENGTH_SHORT).show();
@@ -127,7 +122,7 @@ public class Firebase {
 
         @Override
         protected void onPostExecute(Integer result) {
-            Log.w("result", result + "");
+
             if (result != null && result == -1) {
                 Firebase.progressDialog.dismiss();
                 PhoneVerification verify = new PhoneVerification();

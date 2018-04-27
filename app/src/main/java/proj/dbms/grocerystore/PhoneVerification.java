@@ -88,7 +88,7 @@ public class PhoneVerification extends Fragment implements View.OnClickListener 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.w("SignIn", "Successful");
+
                             Firebase.currentUser = Firebase.auth.getCurrentUser();
                             Firebase.currentUser.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                                 @Override

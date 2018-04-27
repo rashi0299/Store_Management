@@ -67,7 +67,16 @@ public class CatalogueFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Item item = items.get(i);
-        popup(item);
+        if (MainActivity.isAdmin) popup(item);
+        else {
+            if (Firebase.UID != null) {
+                DBConnection connection = new DBConnection(getActivity());
+                long categoryCode = connection.getCategoryCode(category);
+                long res = connection.addToCart(categoryCode, item.getId());
+                Toast.makeText(getActivity(), "Successfully added to cart", Toast.LENGTH_SHORT).show();
+
+            }
+        }
     }
 
     private void popup(@Nullable final Item item) {
@@ -96,22 +105,22 @@ public class CatalogueFragment extends Fragment implements View.OnClickListener,
                         long newId = connection.insertItem(category,
                                 name.getText().toString(),
                                 Float.parseFloat(price.getText().toString()),
-                                Integer.parseInt(quantity.getText().toString()));
+                                Integer.parseInt(quantity.getText().toString()), null);
                         Item item = new Item(newId,
                                 name.getText().toString(),
                                 Float.parseFloat(price.getText().toString()),
-                                Integer.parseInt(quantity.getText().toString()));
+                                Integer.parseInt(quantity.getText().toString()), null);
                         items.add(item);
                     } else {
                         items.remove(item);
                         connection.updateItem(category, item.getId(),
                                 name.getText().toString(),
                                 Float.parseFloat(price.getText().toString()),
-                                Integer.parseInt(quantity.getText().toString()));
+                                Long.parseLong(quantity.getText().toString()));
                         Item newItem = new Item(item.getId(),
                                 name.getText().toString(),
                                 Float.parseFloat(price.getText().toString()),
-                                Integer.parseInt(quantity.getText().toString()));
+                                Integer.parseInt(quantity.getText().toString()), null);
                         if (newItem.getQuantity() != 0) items.add(newItem);
                     }
 

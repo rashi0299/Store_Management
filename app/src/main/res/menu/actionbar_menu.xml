@@ -7,8 +7,8 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/manageUsers"
-        android:title="Manage Users"
+        android:id="@+id/cart"
+        android:title="Go To Cart"
         app:showAsAction="never" />
 
     <item

@@ -21,7 +21,6 @@ import javax.net.ssl.HttpsURLConnection;
 public class NetworkTransactions {
 
     private static String makeHttpRequest(URL url, String method, String data) throws IOException {
-        Log.w("Internet Status", String.valueOf(isInternetAvailable()));
         String jsonResponse = "";
 
 
@@ -76,7 +75,6 @@ public class NetworkTransactions {
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
         outputStreamWriter.write(data);
         outputStreamWriter.flush();
-        Log.w("JSON", data);
     }
 
     public static boolean isInternetAvailable() {
@@ -96,7 +94,7 @@ public class NetworkTransactions {
 
     public static class NetworkRequest extends AsyncTask<String, Void, String> {
 
-        public AsyncResponse response = null;
+        AsyncResponse response = null;
 
         @Override
         protected String doInBackground(String... strings) {

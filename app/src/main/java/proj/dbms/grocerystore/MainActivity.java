@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +26,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
+import java.util.List;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -37,8 +37,8 @@ import static java.lang.Boolean.TRUE;
 
 public class MainActivity extends Activity {
 
-    public static boolean isAdmin = FALSE;
-    public static MenuItem manageUsers;
+    public static boolean isAdmin = false;
+    public static MenuItem cart;
     public static MenuItem addCategory;
     boolean allPermissionsGranted = TRUE;
     boolean needExplanation = FALSE;
@@ -61,10 +61,7 @@ public class MainActivity extends Activity {
             else
                 Toast.makeText(this, "Please install/update Google Play Services", Toast.LENGTH_LONG).show();
 
-        } else {
-            //Take Lite
         }
-        return;
 
     }
 
@@ -162,12 +159,14 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.actionbar_menu, menu);
-        manageUsers = menu.findItem(R.id.manageUsers);
+        cart = menu.findItem(R.id.cart);
         addCategory = menu.findItem(R.id.addCategory);
         if (!isAdmin) {
-            manageUsers.setVisible(false);
+            cart.setVisible(true);
             addCategory.setVisible(false);
 
+        } else {
+            cart.setVisible(false);
         }
         return true;
     }
@@ -182,7 +181,10 @@ public class MainActivity extends Activity {
                 break;
             case R.id.home:
                 HomeScreen homeScreen = new HomeScreen();
-                getFragmentManager().beginTransaction().replace(R.id.fragment, homeScreen).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment, homeScreen).addToBackStack(null).commit();
+                break;
+            case R.id.cart:
+                getFragmentManager().beginTransaction().replace(R.id.fragment, new CartFragment()).addToBackStack(null).commit();
                 break;
             case R.id.addCategory:
                 View dialogView = MainActivity.this.getLayoutInflater().inflate(R.layout.add_category, null);
@@ -200,9 +202,17 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(View view) {
                         if (!name.getText().toString().equals("")) {
-                            Log.w("Name: ", name.getText().toString());
+
                             DBConnection connection = new DBConnection(MainActivity.this);
-                            connection.addCategory(name.getText().toString());
+                            List<String> existingCategories = connection.getCategories();
+                            int flag = 0;
+                            for (int i = 0; i < existingCategories.size(); i++) {
+                                if (existingCategories.get(i).equalsIgnoreCase(name.getText().toString())) {
+                                    flag = 1;
+                                    break;
+                                }
+                            }
+                            if (flag == 0) connection.addCategory(name.getText().toString());
                             getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeScreen()).commit();
                             popup.dismiss();
                         } else {
@@ -216,6 +226,7 @@ public class MainActivity extends Activity {
                         popup.dismiss();
                     }
                 });
+                break;
             default:
                 break;
         }
@@ -228,7 +239,7 @@ public class MainActivity extends Activity {
 
         MainProfile mainProfile = (MainProfile) getFragmentManager().findFragmentByTag("MY_PROFILE");
         if (mainProfile != null && mainProfile.isVisible()) {
-            Log.w("here", "Yes");
+
             //HomeScreen homeScreen = new HomeScreen();
             //getFragmentManager().beginTransaction().replace(R.id.fragment,homeScreen).commit();
             this.getFragmentManager().popBackStack("myProfile", FragmentManager.POP_BACK_STACK_INCLUSIVE);

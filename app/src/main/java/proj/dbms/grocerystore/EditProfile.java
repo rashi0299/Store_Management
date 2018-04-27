@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +106,6 @@ public class EditProfile extends Fragment implements View.OnClickListener, OnSuc
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.w("resultCode", resultCode + "");
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             performCrop(data.getData());
         }
@@ -130,7 +128,6 @@ public class EditProfile extends Fragment implements View.OnClickListener, OnSuc
 
     private void performCrop(Uri picUri) {
         try {
-            Log.w("performCrop", "Working");
 
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
             // indicate image type and Uri
@@ -146,7 +143,7 @@ public class EditProfile extends Fragment implements View.OnClickListener, OnSuc
             // retrieve data on return
             cropIntent.putExtra("return-data", true);
             cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Log.w("performCrop Uri", picUri.toString());
+
             // start the activity - we handle returning in onActivityResult
             startActivityForResult(cropIntent, 2);
         }
@@ -178,7 +175,7 @@ public class EditProfile extends Fragment implements View.OnClickListener, OnSuc
         Item.TABLE_NAME = "Users";
         DBConnection conn = new DBConnection(getActivity());
         conn.addUser(Firebase.UID, name.getText().toString(), name.getText().toString().equalsIgnoreCase("Rut"));
-        //TODO
+
         //Firebase.activity.getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeScreen()).commit();
     }
 

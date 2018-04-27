@@ -24,7 +24,7 @@ class CategoryAdapter extends android.support.v13.app.FragmentPagerAdapter {
 
     @Override
     public android.app.Fragment getItem(int position) {
-        //TODO
+
         CatalogueFragment fragment = new CatalogueFragment();
         Bundle bundle = new Bundle();
         bundle.putString("Category", categories.get(position));
@@ -35,13 +35,13 @@ class CategoryAdapter extends android.support.v13.app.FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        //TODO
+
         return categories.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        //TODO
+
         return categories.get(position);
     }
 }

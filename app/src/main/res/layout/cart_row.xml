@@ -19,14 +19,15 @@
         android:text="Item"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/itemQuantity"
+    <EditText
+        android:id="@+id/itemDemand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/itemName"
         android:layout_alignBottom="@+id/itemName"
         android:layout_marginEnd="84dp"
         android:layout_toStartOf="@+id/itemPrice"
+        android:inputType="number"
         android:text="Quantity"
         android:textSize="20sp" />
 
@@ -34,8 +35,8 @@
         android:id="@+id/itemPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/itemQuantity"
-        android:layout_alignBottom="@+id/itemQuantity"
+        android:layout_alignBaseline="@+id/itemDemand"
+        android:layout_alignBottom="@+id/itemDemand"
         android:layout_alignParentEnd="true"
         android:text="Price"
         android:textSize="20sp" />
