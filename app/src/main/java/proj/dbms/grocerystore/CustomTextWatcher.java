@@ -14,11 +14,13 @@ public class CustomTextWatcher implements TextWatcher {
     private TextView textView;
     private float price;
     private Cart cartItem;
+    private CartAdapter adapter;
 
-    CustomTextWatcher(Cart cartItem, TextView textView, float price) {
+    CustomTextWatcher(CartAdapter adapter, Cart cartItem, TextView textView, float price) {
         this.textView = textView;
         this.price = price;
         this.cartItem = cartItem;
+        this.adapter = adapter;
     }
 
     @Override
@@ -36,6 +38,7 @@ public class CustomTextWatcher implements TextWatcher {
         String s = editable.subSequence(0, editable.length()).toString();
         if (!s.equals("")) {
             textView.setText(String.valueOf((Float.parseFloat(s) * price)));
+            adapter.setTotal(adapter.getTotal() - (price * cartItem.getQuantity()) + (Float.parseFloat(s) * price));
             cartItem.setQuantity(Long.parseLong(s));
         }
     }

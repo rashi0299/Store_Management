@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class CartFragment extends Fragment implements AdapterView.OnItemLongClic
     String category;
     RelativeLayout catalogueLayout;
     ListView listView;
+    TextView total;
 
 
     @Override
@@ -40,10 +42,12 @@ public class CartFragment extends Fragment implements AdapterView.OnItemLongClic
         if (!MainActivity.isAdmin) add.setImageResource(android.R.drawable.arrow_down_float);
         //add.setVisibility(View.GONE);
         add.setOnClickListener(this);
+        total = rootView.findViewById(R.id.total);
         listView = rootView.findViewById(R.id.list);
-        CartAdapter adapter = new CartAdapter(getActivity(), cartItems);
+        CartAdapter adapter = new CartAdapter(getActivity(), cartItems, this);
         listView.setAdapter(adapter);
         listView.setOnItemLongClickListener(this);
+        setTotal(adapter.getTotal());
         return rootView;
     }
 
@@ -78,5 +82,9 @@ public class CartFragment extends Fragment implements AdapterView.OnItemLongClic
                 }
 
         }
+    }
+
+    void setTotal(float total) {
+        this.total.setText(String.valueOf(total));
     }
 }

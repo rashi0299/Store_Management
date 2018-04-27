@@ -102,7 +102,7 @@ public class Firebase {
                                     Firebase.UID = Firebase.currentUser.getUid();
                                     DBConnection conn = new DBConnection(activity);
                                     Users user = conn.getUser(UID);
-                                    MainActivity.isAdmin = user.isAdmin();
+                                    //MainActivity.isAdmin = user.isAdmin();
                                     if (MainActivity.isAdmin) {
                                         MainActivity.addCategory.setVisible(true);
                                     }

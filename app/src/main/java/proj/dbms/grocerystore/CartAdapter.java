@@ -17,21 +17,27 @@ import java.util.List;
 
 public class CartAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
+    CartFragment fragment;
     private Context context;
     private List<Cart> cartItems;
     private List<Item> items = new ArrayList<>();
+    private float total = 0;
 
-    CartAdapter(Context receivedContext, List<Cart> cartItems) {
+    CartAdapter(Context receivedContext, List<Cart> cartItems, CartFragment fragment) {
 
         context = receivedContext;
         this.cartItems = cartItems;
+        this.fragment = fragment;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         DBConnection connection = new DBConnection(context);
         for (int i = 0; i < cartItems.size(); i++) {
-            items.add(connection.getItem(cartItems.get(i).getItem()));
+            Item item = connection.getItem(cartItems.get(i).getItem());
+            items.add(item);
+            total += item.getPrice();
         }
+
 
     }
 
@@ -60,9 +66,18 @@ public class CartAdapter extends BaseAdapter {
         TextView price = rowView.findViewById(R.id.itemPrice);
         name.setText(this.items.get(position).getName());
         quantity.setText(cartItems.get(position).getQuantity() + "");
-        CustomTextWatcher customTextWatcher = new CustomTextWatcher(this.cartItems.get(position), price, this.items.get(position).getPrice());
+        CustomTextWatcher customTextWatcher = new CustomTextWatcher(this, this.cartItems.get(position), price, this.items.get(position).getPrice());
         quantity.addTextChangedListener(customTextWatcher);
         price.setText(String.valueOf(this.items.get(position).getPrice()));
         return rowView;
+    }
+
+    float getTotal() {
+        return total;
+    }
+
+    void setTotal(float total) {
+        this.total = total;
+        fragment.setTotal(this.total);
     }
 }
