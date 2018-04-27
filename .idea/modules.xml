@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GroceryStore.iml" filepath="$PROJECT_DIR$/GroceryStore.iml" />
+      <module fileurl="file://C:\Users\Abhishek Singh\AndroidStudioProjects\Store_Management\GroceryStore.iml" filepath="C:\Users\Abhishek Singh\AndroidStudioProjects\Store_Management\GroceryStore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Store_Management.iml" filepath="$PROJECT_DIR$/Store_Management.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Abhishek Singh\AndroidStudioProjects\Store_Management\app\app.iml" filepath="C:\Users\Abhishek Singh\AndroidStudioProjects\Store_Management\app\app.iml" />
     </modules>
   </component>
 </project>

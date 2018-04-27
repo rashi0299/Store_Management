@@ -38,6 +38,8 @@
         android:layout_height="55dp"
         android:layout_below="@id/loginElements"
         android:layout_centerHorizontal="true"
+        android:background="#42A5F5"
+        android:elevation="16dp"
         android:text="Click Here" />
 
 </RelativeLayout>
