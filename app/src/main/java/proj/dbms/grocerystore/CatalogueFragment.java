@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -53,6 +54,13 @@ public class CatalogueFragment extends Fragment implements View.OnClickListener,
         listView.setOnItemClickListener(this);
         listView.setAdapter(adapter);
         add.setOnClickListener(this);
+
+        TextView totalText = rootView.findViewById(R.id.totalText);
+        TextView total = rootView.findViewById(R.id.total);
+
+        totalText.setVisibility(View.GONE);
+        total.setVisibility(View.GONE);
+
         return rootView;
     }
 
